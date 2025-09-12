@@ -1,0 +1,105 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./components/Sidebar.module.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+.Sidebar_sidebar__G7Mzs {
+  background: var(--surface-2);
+  border-right: 1px solid var(--border);
+  padding: 16px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}
+.Sidebar_brand__0NoWE {
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.Sidebar_nav__9EDqy {
+  display: grid;
+  grid-gap: 8px;
+  gap: 8px;
+}
+.Sidebar_link__NjnkI {
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.Sidebar_link__NjnkI:hover { background: #2f2f36; }
+.Sidebar_active__Bfm7L { background: var(--primary-600); }
+
+
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./components/ChatWidget.module.css ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+.ChatWidget_root__opxMS { position: fixed; left: 16px; bottom: 16px; z-index: 50; }
+.ChatWidget_fab__Hg85B {
+  width: 56px; height: 56px; border-radius: 999px;
+  border: 0; background: var(--primary); color: white;
+  font-size: 22px; box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+.ChatWidget_panel___zFAM {
+  position: absolute; left: 0; bottom: 72px; width: 320px; max-height: 420px;
+  display: grid; grid-template-rows: auto 1fr auto;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+.ChatWidget_header__xcBN7 { padding: 10px 12px; background: var(--primary-600); color: white; font-weight: 700; }
+.ChatWidget_messages__BTeAb { padding: 10px; overflow: auto; display: grid; grid-gap: 8px; gap: 8px; }
+.ChatWidget_user__1IBJr { justify-self: end; background: #44445a; color: #fff; padding: 6px 10px; border-radius: 12px; }
+.ChatWidget_bot__hdK8h { justify-self: start; background: #3a3a42; color: #fff; padding: 6px 10px; border-radius: 12px; }
+.ChatWidget_inputRow__cQuvt { display: flex; gap: 6px; padding: 8px; border-top: 1px solid var(--border); }
+.ChatWidget_inputRow__cQuvt input { flex: 1 1; background: #2f2f36; color: white; border: 1px solid var(--border); border-radius: 8px; padding: 8px; }
+.ChatWidget_inputRow__cQuvt button { background: var(--primary); border: 0; color: white; border-radius: 8px; padding: 8px 12px; }
+
+
+/*!************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./app/agenda/styles.module.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************/
+.styles_container__KxL8H {
+  padding: 24px;
+}
+.styles_back__K3TRs { color: var(--accent); }
+.styles_form__f0A6N {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.styles_form__f0A6N input {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+.styles_form__f0A6N button {
+  background: var(--primary);
+  color: white;
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.styles_list__8q6_4 {
+  display: grid;
+  grid-gap: 8px;
+  gap: 8px;
+}
+.styles_list__8q6_4 li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.styles_list__8q6_4 button {
+  background: var(--danger);
+  color: white;
+  border: 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+

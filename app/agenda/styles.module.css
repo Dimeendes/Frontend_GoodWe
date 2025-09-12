@@ -1,0 +1,45 @@
+.container {
+  padding: 24px;
+}
+.back { color: var(--accent); }
+.form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.form input {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+.form button {
+  background: var(--primary);
+  color: white;
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.list {
+  display: grid;
+  gap: 8px;
+}
+.list li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.list button {
+  background: var(--danger);
+  color: white;
+  border: 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+

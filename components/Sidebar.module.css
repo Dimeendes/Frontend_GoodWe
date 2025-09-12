@@ -1,0 +1,26 @@
+.sidebar {
+  background: var(--surface-2);
+  border-right: 1px solid var(--border);
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}
+.brand {
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.nav {
+  display: grid;
+  gap: 8px;
+}
+.link {
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.link:hover { background: #2f2f36; }
+.active { background: var(--primary-600); }
+

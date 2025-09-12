@@ -1,0 +1,23 @@
+.wrapper {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+.icon { font-size: 28px; }
+.title { font-weight: 700; margin-bottom: 8px; }
+.row { display: flex; gap: 8px; align-items: center; }
+.badge {
+  background: var(--primary);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.meta { color: var(--muted); display: flex; gap: 12px; margin-top: 6px; }
+.days { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 8px; }
+.dayCard { background: #2f2f36; border: 1px solid var(--border); border-radius: 10px; padding: 10px; display: grid; gap: 6px; }
+.dayTop { display: flex; align-items: center; gap: 6px; }
+.dayDate { color: var(--muted); font-size: 12px; }
+

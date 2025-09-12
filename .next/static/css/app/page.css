@@ -1,0 +1,82 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./components/Sidebar.module.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+.Sidebar_sidebar__G7Mzs {
+  background: var(--surface-2);
+  border-right: 1px solid var(--border);
+  padding: 16px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}
+.Sidebar_brand__0NoWE {
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.Sidebar_nav__9EDqy {
+  display: grid;
+  grid-gap: 8px;
+  gap: 8px;
+}
+.Sidebar_link__NjnkI {
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.Sidebar_link__NjnkI:hover { background: #2f2f36; }
+.Sidebar_active__Bfm7L { background: var(--primary-600); }
+
+
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./components/Weather.module.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+.Weather_wrapper__5UMHQ {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+.Weather_icon__fGxBC { font-size: 28px; }
+.Weather_title__CBs56 { font-weight: 700; margin-bottom: 8px; }
+.Weather_row__a9NiL { display: flex; gap: 8px; align-items: center; }
+.Weather_badge__rMU5w {
+  background: var(--primary);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.Weather_meta__T1wFG { color: var(--muted); display: flex; gap: 12px; margin-top: 6px; }
+.Weather_days__TmwtS { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); grid-gap: 8px; gap: 8px; }
+.Weather_dayCard__U_SzQ { background: #2f2f36; border: 1px solid var(--border); border-radius: 10px; padding: 10px; display: grid; grid-gap: 6px; gap: 6px; }
+.Weather_dayTop__2UgzG { display: flex; align-items: center; gap: 6px; }
+.Weather_dayDate__elFkI { color: var(--muted); font-size: 12px; }
+
+
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./components/ChatWidget.module.css ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+.ChatWidget_root__opxMS { position: fixed; left: 16px; bottom: 16px; z-index: 50; }
+.ChatWidget_fab__Hg85B {
+  width: 56px; height: 56px; border-radius: 999px;
+  border: 0; background: var(--primary); color: white;
+  font-size: 22px; box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+.ChatWidget_panel___zFAM {
+  position: absolute; left: 0; bottom: 72px; width: 320px; max-height: 420px;
+  display: grid; grid-template-rows: auto 1fr auto;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+.ChatWidget_header__xcBN7 { padding: 10px 12px; background: var(--primary-600); color: white; font-weight: 700; }
+.ChatWidget_messages__BTeAb { padding: 10px; overflow: auto; display: grid; grid-gap: 8px; gap: 8px; }
+.ChatWidget_user__1IBJr { justify-self: end; background: #44445a; color: #fff; padding: 6px 10px; border-radius: 12px; }
+.ChatWidget_bot__hdK8h { justify-self: start; background: #3a3a42; color: #fff; padding: 6px 10px; border-radius: 12px; }
+.ChatWidget_inputRow__cQuvt { display: flex; gap: 6px; padding: 8px; border-top: 1px solid var(--border); }
+.ChatWidget_inputRow__cQuvt input { flex: 1 1; background: #2f2f36; color: white; border: 1px solid var(--border); border-radius: 8px; padding: 8px; }
+.ChatWidget_inputRow__cQuvt button { background: var(--primary); border: 0; color: white; border-radius: 8px; padding: 8px 12px; }
+
+

@@ -1,0 +1,15 @@
+import { NextResponse } from 'next/server';
+import { removeAgenda } from '../../../../lib/db';
+
+export async function DELETE(_request, { params }) {
+  const { id } = params;
+  if (!id) return NextResponse.json({ error: 'missing id' }, { status: 400 });
+  try {
+    removeAgenda(id);
+    return NextResponse.json({ ok: true });
+  } catch (e) {
+    return NextResponse.json({ error: String(e) }, { status: 500 });
+  }
+}
+
+
