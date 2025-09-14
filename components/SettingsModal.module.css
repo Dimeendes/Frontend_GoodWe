@@ -1,0 +1,182 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0;
+  min-width: 400px;
+  max-width: 500px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+  background: var(--surface-2);
+}
+
+.content {
+  padding: 24px;
+}
+
+.setting {
+  margin-bottom: 24px;
+}
+
+.setting:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.themeOptions {
+  display: flex;
+  gap: 12px;
+}
+
+.themeButton {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.themeButton:hover {
+  background: var(--surface);
+  border-color: var(--primary);
+}
+
+.themeButton.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+/* Light theme styles */
+.light-theme .overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.light-theme .modal {
+  background: white;
+  border-color: #e5e7eb;
+}
+
+.light-theme .header {
+  border-bottom-color: #e5e7eb;
+}
+
+.light-theme .title {
+  color: #111827;
+}
+
+.light-theme .closeButton {
+  color: #6b7280;
+}
+
+.light-theme .closeButton:hover {
+  background: #f3f4f6;
+}
+
+.light-theme .label {
+  color: #111827;
+}
+
+.light-theme .select {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #111827;
+}
+
+.light-theme .select:focus {
+  border-color: var(--primary);
+}
+
+.light-theme .themeButton {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #111827;
+}
+
+.light-theme .themeButton:hover {
+  background: #f3f4f6;
+  border-color: var(--primary);
+}
+
+.light-theme .themeButton.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}

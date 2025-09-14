@@ -15,6 +15,24 @@
   --chart-4: #6ee7b7;
 }
 
+/* Light theme variables */
+.light-theme {
+  --bg: #ffffff;
+  --surface: #f8f9fa;
+  --surface-2: #e9ecef;
+  --text: #212529;
+  --muted: #6c757d;
+  --primary: #d13438; /* red */
+  --primary-600: #a92a2e;
+  --accent: #ff6b6b;
+  --danger: #c62b2f;
+  --border: #dee2e6;
+  --chart-1: #ff6b6b;
+  --chart-2: #ff8fa3;
+  --chart-3: #ffd166;
+  --chart-4: #6ee7b7;
+}
+
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {

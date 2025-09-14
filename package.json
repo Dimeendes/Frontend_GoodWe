@@ -6,17 +6,24 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "echo 'no linter configured'"
+    "lint": "echo 'no linter configured'",
+    "clean": "node clean-cache.js",
+    "clean-dev": "node clean-cache.js && npm run dev"
   },
   "dependencies": {
-    "better-sqlite3": "^9.6.0",
+    "@elevenlabs/elevenlabs-js": "^2.15.0",
+    "axios": "^1.12.1",
     "chart.js": "^4.4.3",
     "chartjs-plugin-zoom": "^2.0.1",
     "clsx": "2.1.1",
+    "dotenv": "^17.2.2",
     "next": "^14.2.5",
     "papaparse": "5.4.1",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "sqlite3": "^5.1.6"
   }
 }

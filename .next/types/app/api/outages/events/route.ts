@@ -1,4 +1,4 @@
-// File: C:\Users\diego\Downloads\Goodwe\app\api\outages\events\route.js
+// File: C:\Users\thisa\OneDrive\Área de Trabalho\Fiap stuff\Material de sala\Avaliacoes\Challange Sprint\Etapa5_GoodWe\Frontend_goodwe\app\api\outages\events\route.js
 import * as entry from '../../../../../../app/api/outages/events/route.js'
 import type { NextRequest } from 'next/server.js'
 

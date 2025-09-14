@@ -15,5 +15,105 @@
 .bot { justify-self: start; background: #3a3a42; color: #fff; padding: 6px 10px; border-radius: 12px; }
 .inputRow { display: flex; gap: 6px; padding: 8px; border-top: 1px solid var(--border); }
 .inputRow input { flex: 1; background: #2f2f36; color: white; border: 1px solid var(--border); border-radius: 8px; padding: 8px; }
-.inputRow button { background: var(--primary); border: 0; color: white; border-radius: 8px; padding: 8px 12px; }
+.inputRow input:disabled { opacity: 0.6; cursor: not-allowed; }
+.inputRow button { background: var(--primary); border: 0; color: white; border-radius: 8px; padding: 8px 12px; cursor: pointer; }
+.inputRow button:disabled { opacity: 0.6; cursor: not-allowed; }
+.typing { 
+  font-style: italic; 
+  opacity: 0.8; 
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+}
+
+/* Estilos para markdown */
+.paragraph {
+  margin: 0.5em 0;
+  line-height: 1.4;
+}
+
+.paragraph:first-child {
+  margin-top: 0;
+}
+
+.paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.inlineCode {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.codeBlock {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 8px;
+  margin: 8px 0;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+}
+
+.codeBlock code {
+  background: none;
+  padding: 0;
+  border: none;
+  font-family: inherit;
+}
+
+.list, .orderedList {
+  margin: 0.5em 0;
+  padding-left: 1.2em;
+}
+
+.listItem {
+  margin: 0.2em 0;
+  line-height: 1.3;
+}
+
+.heading1 {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 0.8em 0 0.4em 0;
+  color: #fff;
+}
+
+.heading2 {
+  font-size: 1.05em;
+  font-weight: bold;
+  margin: 0.6em 0 0.3em 0;
+  color: #fff;
+}
+
+.heading3 {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0.5em 0 0.2em 0;
+  color: #fff;
+}
+
+.blockquote {
+  border-left: 3px solid var(--primary);
+  padding-left: 8px;
+  margin: 0.5em 0;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.bold {
+  font-weight: bold;
+  color: #fff;
+}
+
+.italic {
+  font-style: italic;
+}
 

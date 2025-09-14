@@ -1,8 +1,10 @@
 {
-  "/api/agenda/route": "app/api/agenda/route.js",
-  "/agenda/page": "app/agenda/page.js",
-  "/api/outages/events/route": "app/api/outages/events/route.js",
-  "/medidas/page": "app/medidas/page.js",
   "/page": "app/page.js",
+  "/agenda/page": "app/agenda/page.js",
+  "/medidas/page": "app/medidas/page.js",
+  "/alertas/page": "app/alertas/page.js",
+  "/api/agenda/route": "app/api/agenda/route.js",
+  "/api/outages/events/route": "app/api/outages/events/route.js",
+  "/api/alerts/route": "app/api/alerts/route.js",
   "/api/outages/reasons/route": "app/api/outages/reasons/route.js"
 }

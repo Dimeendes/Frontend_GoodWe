@@ -3,12 +3,31 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Sidebar from '../../components/Sidebar';
 import ChatWidget from '../../components/ChatWidget';
+import { useSettings } from '../../contexts/SettingsContext';
 import styles from './styles.module.css';
 
 export default function AgendaPage() {
   const [items, setItems] = useState([]);
   const [text, setText] = useState("");
   const [date, setDate] = useState("");
+  const { language } = useSettings();
+
+  const translations = {
+    pt: {
+      title: 'Agenda',
+      description: 'Descrição',
+      add: 'Adicionar',
+      delete: 'Excluir'
+    },
+    en: {
+      title: 'Schedule',
+      description: 'Description',
+      add: 'Add',
+      delete: 'Delete'
+    }
+  };
+
+  const t = translations[language];
 
   useEffect(() => {
     fetch('/api/agenda').then(r => r.json()).then(setItems).catch(() => {});
@@ -36,18 +55,18 @@ export default function AgendaPage() {
         <div className="topbar"><h2 className="title">SmartWe</h2></div>
         <div className="content">
           <div className={styles.container}>
-            <h1>Agenda</h1>
+            <h1>{t.title}</h1>
             <form onSubmit={addItem} className={styles.form}>
-              <input value={text} onChange={e => setText(e.target.value)} placeholder="Descrição" />
+              <input value={text} onChange={e => setText(e.target.value)} placeholder={t.description} />
               <input type="date" value={date} onChange={e => setDate(e.target.value)} />
-              <button type="submit">Adicionar</button>
+              <button type="submit">{t.add}</button>
             </form>
             <ul className={styles.list}>
               {items.map(item => (
                 <li key={item.id}>
                   <span>{item.text}</span>
-                  {item.date && <em> {new Date(item.date).toLocaleDateString()}</em>}
-                  <button onClick={() => removeItem(item.id)}>Excluir</button>
+                  {item.date && <em> {new Date(item.date).toLocaleDateString(language === 'pt' ? 'pt-BR' : 'en-US')}</em>}
+                  <button onClick={() => removeItem(item.id)}>{t.delete}</button>
                 </li>
               ))}
             </ul>

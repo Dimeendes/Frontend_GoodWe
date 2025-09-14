@@ -1,5 +1,5 @@
 /*!*************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./app/globals.css ***!
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./app/globals.css ***!
   \*************************************************************************************************************************************************************************************************************************************************************/
 :root {
   --bg: #1f1f23;
@@ -12,6 +12,24 @@
   --accent: #ff6b6b;
   --danger: #c62b2f;
   --border: #3d3d46;
+  --chart-1: #ff6b6b;
+  --chart-2: #ff8fa3;
+  --chart-3: #ffd166;
+  --chart-4: #6ee7b7;
+}
+
+/* Light theme variables */
+.light-theme {
+  --bg: #ffffff;
+  --surface: #f8f9fa;
+  --surface-2: #e9ecef;
+  --text: #212529;
+  --muted: #6c757d;
+  --primary: #d13438; /* red */
+  --primary-600: #a92a2e;
+  --accent: #ff6b6b;
+  --danger: #c62b2f;
+  --border: #dee2e6;
   --chart-1: #ff6b6b;
   --chart-2: #ff8fa3;
   --chart-3: #ffd166;
@@ -77,4 +95,190 @@ a { color: inherit; text-decoration: none; }
   padding: 16px;
 }
 
+
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./components/SettingsModal.module.css ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
+.SettingsModal_overlay__Hn2_T {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.SettingsModal_modal__rx0h2 {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0;
+  min-width: 400px;
+  max-width: 500px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.SettingsModal_header__eSwOR {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.SettingsModal_title__VGotA {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.SettingsModal_closeButton__hhYxH {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.SettingsModal_closeButton__hhYxH:hover {
+  background: var(--surface-2);
+}
+
+.SettingsModal_content__gsyYk {
+  padding: 24px;
+}
+
+.SettingsModal_setting__RDXG_ {
+  margin-bottom: 24px;
+}
+
+.SettingsModal_setting__RDXG_:last-child {
+  margin-bottom: 0;
+}
+
+.SettingsModal_label__hIlrB {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.SettingsModal_select__wZErC {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.SettingsModal_select__wZErC:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.SettingsModal_themeOptions__DsNly {
+  display: flex;
+  gap: 12px;
+}
+
+.SettingsModal_themeButton__Ens_Y {
+  flex: 1 1;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.SettingsModal_themeButton__Ens_Y:hover {
+  background: var(--surface);
+  border-color: var(--primary);
+}
+
+.SettingsModal_themeButton__Ens_Y.SettingsModal_active__je0l3 {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+/* Light theme styles */
+.SettingsModal_light-theme__KcIGm .SettingsModal_overlay__Hn2_T {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.SettingsModal_light-theme__KcIGm .SettingsModal_modal__rx0h2 {
+  background: white;
+  border-color: #e5e7eb;
+}
+
+.SettingsModal_light-theme__KcIGm .SettingsModal_header__eSwOR {
+  border-bottom-color: #e5e7eb;
+}
+
+.SettingsModal_light-theme__KcIGm .SettingsModal_title__VGotA {
+  color: #111827;
+}
+
+.SettingsModal_light-theme__KcIGm .SettingsModal_closeButton__hhYxH {
+  color: #6b7280;
+}
+
+.SettingsModal_light-theme__KcIGm .SettingsModal_closeButton__hhYxH:hover {
+  background: #f3f4f6;
+}
+
+.SettingsModal_light-theme__KcIGm .SettingsModal_label__hIlrB {
+  color: #111827;
+}
+
+.SettingsModal_light-theme__KcIGm .SettingsModal_select__wZErC {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #111827;
+}
+
+.SettingsModal_light-theme__KcIGm .SettingsModal_select__wZErC:focus {
+  border-color: var(--primary);
+}
+
+.SettingsModal_light-theme__KcIGm .SettingsModal_themeButton__Ens_Y {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #111827;
+}
+
+.SettingsModal_light-theme__KcIGm .SettingsModal_themeButton__Ens_Y:hover {
+  background: #f3f4f6;
+  border-color: var(--primary);
+}
+
+.SettingsModal_light-theme__KcIGm .SettingsModal_themeButton__Ens_Y.SettingsModal_active__je0l3 {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
 

@@ -1,5 +1,5 @@
 /*!*************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./components/Sidebar.module.css ***!
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./components/Sidebar.module.css ***!
   \*************************************************************************************************************************************************************************************************************************************************************************/
 .Sidebar_sidebar__G7Mzs {
   background: var(--surface-2);
@@ -25,13 +25,50 @@
   color: var(--text);
   padding: 8px 10px;
   border-radius: 8px;
+  text-align: left;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
 }
 .Sidebar_link__NjnkI:hover { background: #2f2f36; }
 .Sidebar_active__Bfm7L { background: var(--primary-600); }
 
+.Sidebar_settingsButton__oeCrP {
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-align: left;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.Sidebar_settingsButton__oeCrP:hover { 
+  background: #2f2f36; 
+}
+
+/* Light theme styles for sidebar */
+.Sidebar_light-theme__29GbZ .Sidebar_link__NjnkI:hover { 
+  background: #f3f4f6; 
+}
+
+.Sidebar_light-theme__29GbZ .Sidebar_settingsButton__oeCrP:hover { 
+  background: #f3f4f6; 
+}
+
 
 /*!*************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./components/Weather.module.css ***!
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./components/Weather.module.css ***!
   \*************************************************************************************************************************************************************************************************************************************************************************/
 .Weather_wrapper__5UMHQ {
   display: block;
@@ -58,7 +95,7 @@
 
 
 /*!****************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./components/ChatWidget.module.css ***!
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./components/ChatWidget.module.css ***!
   \****************************************************************************************************************************************************************************************************************************************************************************/
 .ChatWidget_root__opxMS { position: fixed; left: 16px; bottom: 16px; z-index: 50; }
 .ChatWidget_fab__Hg85B {
@@ -77,6 +114,388 @@
 .ChatWidget_bot__hdK8h { justify-self: start; background: #3a3a42; color: #fff; padding: 6px 10px; border-radius: 12px; }
 .ChatWidget_inputRow__cQuvt { display: flex; gap: 6px; padding: 8px; border-top: 1px solid var(--border); }
 .ChatWidget_inputRow__cQuvt input { flex: 1 1; background: #2f2f36; color: white; border: 1px solid var(--border); border-radius: 8px; padding: 8px; }
-.ChatWidget_inputRow__cQuvt button { background: var(--primary); border: 0; color: white; border-radius: 8px; padding: 8px 12px; }
+.ChatWidget_inputRow__cQuvt input:disabled { opacity: 0.6; cursor: not-allowed; }
+.ChatWidget_inputRow__cQuvt button { background: var(--primary); border: 0; color: white; border-radius: 8px; padding: 8px 12px; cursor: pointer; }
+.ChatWidget_inputRow__cQuvt button:disabled { opacity: 0.6; cursor: not-allowed; }
+.ChatWidget_typing__yBQj5 { 
+  font-style: italic; 
+  opacity: 0.8; 
+  animation: ChatWidget_pulse__ZwSxY 1.5s ease-in-out infinite;
+}
 
+@keyframes ChatWidget_pulse__ZwSxY {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+}
+
+/* Estilos para markdown */
+.ChatWidget_paragraph__cOi1b {
+  margin: 0.5em 0;
+  line-height: 1.4;
+}
+
+.ChatWidget_paragraph__cOi1b:first-child {
+  margin-top: 0;
+}
+
+.ChatWidget_paragraph__cOi1b:last-child {
+  margin-bottom: 0;
+}
+
+.ChatWidget_inlineCode__2Mm7J {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.ChatWidget_codeBlock___a_ln {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 8px;
+  margin: 8px 0;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+}
+
+.ChatWidget_codeBlock___a_ln code {
+  background: none;
+  padding: 0;
+  border: none;
+  font-family: inherit;
+}
+
+.ChatWidget_list__Og_G8, .ChatWidget_orderedList__UhTA5 {
+  margin: 0.5em 0;
+  padding-left: 1.2em;
+}
+
+.ChatWidget_listItem__5Oijh {
+  margin: 0.2em 0;
+  line-height: 1.3;
+}
+
+.ChatWidget_heading1__tq3Fh {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 0.8em 0 0.4em 0;
+  color: #fff;
+}
+
+.ChatWidget_heading2__3zzBt {
+  font-size: 1.05em;
+  font-weight: bold;
+  margin: 0.6em 0 0.3em 0;
+  color: #fff;
+}
+
+.ChatWidget_heading3__afr95 {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0.5em 0 0.2em 0;
+  color: #fff;
+}
+
+.ChatWidget_blockquote__mj__l {
+  border-left: 3px solid var(--primary);
+  padding-left: 8px;
+  margin: 0.5em 0;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.ChatWidget_bold__1KJyh {
+  font-weight: bold;
+  color: #fff;
+}
+
+.ChatWidget_italic__2Erm3 {
+  font-style: italic;
+}
+
+
+/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./components/AlertSystem.module.css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************/
+.AlertSystem_loading__UvAbj {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  color: var(--muted);
+}
+
+.AlertSystem_spinner__YNTDa {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-top: 2px solid var(--accent);
+  border-radius: 50%;
+  animation: AlertSystem_spin___m_jA 1s linear infinite;
+}
+
+@keyframes AlertSystem_spin___m_jA {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.AlertSystem_noAlerts__7Fy1u {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.AlertSystem_noAlerts__7Fy1u span:first-child {
+  font-size: 32px;
+}
+
+.AlertSystem_alertsContainer__2WtuY {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.AlertSystem_alert__R2SSc {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--surface);
+  border-left: 4px solid;
+  transition: all 0.2s ease;
+}
+
+.AlertSystem_alert__R2SSc:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.AlertSystem_alert__R2SSc.AlertSystem_critical__5eI6_ {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(220, 38, 38, 0.02));
+  border-color: #dc2626;
+}
+
+.AlertSystem_alert__R2SSc.AlertSystem_warning__ml__l {
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.05), rgba(234, 88, 12, 0.02));
+  border-color: #ea580c;
+}
+
+.AlertSystem_alert__R2SSc.AlertSystem_info__eD56S {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(37, 99, 235, 0.02));
+  border-color: #2563eb;
+}
+
+.AlertSystem_alertHeader__viUG2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.AlertSystem_alertTitle__ZPmnJ {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.AlertSystem_typeIcon___eDuZ {
+  font-size: 18px;
+}
+
+.AlertSystem_alertActions__gew0V {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.AlertSystem_priority__ar3Hx {
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.AlertSystem_audioButton__Cyym9 {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.AlertSystem_audioButton__Cyym9:hover {
+  background: var(--accent-hover);
+  transform: scale(1.05);
+}
+
+.AlertSystem_closeButton__xPEh1 {
+  background: var(--danger);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.AlertSystem_closeButton__xPEh1:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+.AlertSystem_alertContent__63_Ww {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.AlertSystem_message__CIYeF {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.AlertSystem_recommendation__Lyrnu {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.AlertSystem_recommendation__Lyrnu strong {
+  color: #2563eb;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.AlertSystem_recommendation__Lyrnu p {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.AlertSystem_action__J9YwB {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.AlertSystem_action__J9YwB strong {
+  color: #059669;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.AlertSystem_action__J9YwB span {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Scrollbar personalizada */
+.AlertSystem_alertsContainer__2WtuY::-webkit-scrollbar {
+  width: 6px;
+}
+
+.AlertSystem_alertsContainer__2WtuY::-webkit-scrollbar-track {
+  background: var(--surface);
+  border-radius: 3px;
+}
+
+.AlertSystem_alertsContainer__2WtuY::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.AlertSystem_alertsContainer__2WtuY::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .AlertSystem_alertHeader__viUG2 {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .AlertSystem_alertActions__gew0V {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .AlertSystem_alertTitle__ZPmnJ {
+    font-size: 15px;
+  }
+  
+  .AlertSystem_message__CIYeF {
+    font-size: 14px;
+  }
+}
+
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./components/WeatherControlPanel.module.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
+/* Animação de pulso para indicador de áudio */
+@keyframes WeatherControlPanel_pulse__jOYSC {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.WeatherControlPanel_audioIndicator___OOBf {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  background: #10b981;
+  color: white;
+  border-radius: 4px;
+  font-size: 10px;
+  animation: WeatherControlPanel_pulse__jOYSC 2s infinite;
+}
+
+.WeatherControlPanel_audioIndicator___OOBf.WeatherControlPanel_playing__gtVob {
+  background: #10b981;
+}
+
+.WeatherControlPanel_audioIndicator___OOBf.WeatherControlPanel_error__9lZDc {
+  background: #ef4444;
+  animation: none;
+}
 

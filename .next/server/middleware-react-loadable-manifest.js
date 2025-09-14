@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST="{\"components\\\\LineChart.js -> ./LineChartClient\":{\"id\":\"components\\\\LineChart.js -> ./LineChartClient\",\"files\":[\"static/chunks/_app-pages-browser_components_LineChartClient_js.js\"]},\"components\\\\PieChart.js -> ./PieChartClient\":{\"id\":\"components\\\\PieChart.js -> ./PieChartClient\",\"files\":[\"static/chunks/_app-pages-browser_components_PieChartClient_js.js\"]}}"

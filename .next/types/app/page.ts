@@ -1,4 +1,4 @@
-// File: C:\Users\diego\Downloads\Goodwe\app\page.js
+// File: C:\Users\thisa\OneDrive\Área de Trabalho\Fiap stuff\Material de sala\Avaliacoes\Challange Sprint\Etapa5_GoodWe\Frontend_goodwe\app\page.js
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

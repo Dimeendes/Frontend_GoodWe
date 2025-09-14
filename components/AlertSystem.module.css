@@ -1,0 +1,238 @@
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  color: var(--muted);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-top: 2px solid var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.noAlerts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.noAlerts span:first-child {
+  font-size: 32px;
+}
+
+.alertsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.alert {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--surface);
+  border-left: 4px solid;
+  transition: all 0.2s ease;
+}
+
+.alert:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.alert.critical {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(220, 38, 38, 0.02));
+  border-color: #dc2626;
+}
+
+.alert.warning {
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.05), rgba(234, 88, 12, 0.02));
+  border-color: #ea580c;
+}
+
+.alert.info {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(37, 99, 235, 0.02));
+  border-color: #2563eb;
+}
+
+.alertHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.alertTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.typeIcon {
+  font-size: 18px;
+}
+
+.alertActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.priority {
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.audioButton {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.audioButton:hover {
+  background: var(--accent-hover);
+  transform: scale(1.05);
+}
+
+.closeButton {
+  background: var(--danger);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+.alertContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.recommendation {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.recommendation strong {
+  color: #2563eb;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.recommendation p {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.action {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.action strong {
+  color: #059669;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.action span {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Scrollbar personalizada */
+.alertsContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.alertsContainer::-webkit-scrollbar-track {
+  background: var(--surface);
+  border-radius: 3px;
+}
+
+.alertsContainer::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.alertsContainer::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .alertHeader {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .alertActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .alertTitle {
+    font-size: 15px;
+  }
+  
+  .message {
+    font-size: 14px;
+  }
+}

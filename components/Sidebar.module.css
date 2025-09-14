@@ -20,7 +20,44 @@
   color: var(--text);
   padding: 8px 10px;
   border-radius: 8px;
+  text-align: left;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
 }
 .link:hover { background: #2f2f36; }
 .active { background: var(--primary-600); }
+
+.settingsButton {
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-align: left;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.settingsButton:hover { 
+  background: #2f2f36; 
+}
+
+/* Light theme styles for sidebar */
+.light-theme .link:hover { 
+  background: #f3f4f6; 
+}
+
+.light-theme .settingsButton:hover { 
+  background: #f3f4f6; 
+}
 

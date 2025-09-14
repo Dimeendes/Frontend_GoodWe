@@ -5,7 +5,11 @@ import Weather from './Weather';
 import LineChart from './LineChart';
 import PieChart from './PieChart';
 import ChatWidget from './ChatWidget';
+import AlertSystem from './AlertSystem';
 import { loadGoodweCsv, toLineChartData, toPieChartData } from '../lib/csv';
+import { useSettings } from '../contexts/SettingsContext';
+import { generateWeatherData, getCurrentScenarioInfo } from '../lib/weatherConfig';
+import weatherStyles from './WeatherControlPanel.module.css';
 
 export default function Dashboard() {
   const [labels, setLabels] = useState([]);
@@ -17,6 +21,67 @@ export default function Dashboard() {
   const [hourTo, setHourTo] = useState(23);
   const chartRef = useRef(null);
   const [peaksMetric, setPeaksMetric] = useState('load');
+  const { language } = useSettings();
+
+  const translations = {
+    pt: {
+      goodweChart: 'Gráfico da GoodWe',
+      load: 'Load(W)',
+      pv: 'PV(W)',
+      battery: 'Bateria(W)',
+      grid: 'Grid(W)',
+      soc: 'SOC(%)',
+      from: 'De',
+      to: 'Até',
+      resetZoom: 'Reset Zoom',
+      notifications: 'Notificações',
+      peaksByPeriod: 'Picos de gasto por período',
+      type: 'Tipo',
+      mostCommonOutageCauses: 'Causas mais comuns de queda de energia',
+      powerOutage: 'Queda de energia',
+      morning: 'Picos de gasto manhã (05:00–11:00)',
+      afternoon: 'Picos de gasto tarde (12:00–18:00)',
+      night: 'Picos de gasto noite (19:00–04:00)',
+      highest: 'Maior',
+      lowest: 'Menor',
+      addReason: 'Adicionar',
+      reasonPlaceholder: 'Motivo da queda (ex.: Rede elétrica, Falha no inversor)',
+      quantity: 'Qtd',
+      delete: 'Excluir',
+      weatherControl: 'Controle Meteorológico',
+      currentScenario: 'Cenário Atual',
+      changeScenario: 'Mudar Cenário',
+      scenarioDescription: 'Descrição',
+      editConfig: 'Editar Configuração'
+    },
+    en: {
+      goodweChart: 'GoodWe Chart',
+      load: 'Load(W)',
+      pv: 'PV(W)',
+      battery: 'Battery(W)',
+      grid: 'Grid(W)',
+      soc: 'SOC(%)',
+      from: 'From',
+      to: 'To',
+      resetZoom: 'Reset Zoom',
+      notifications: 'Notifications',
+      peaksByPeriod: 'Peak consumption by period',
+      type: 'Type',
+      mostCommonOutageCauses: 'Most common power outage causes',
+      powerOutage: 'Power Outage',
+      morning: 'Morning peaks (05:00–11:00)',
+      afternoon: 'Afternoon peaks (12:00–18:00)',
+      night: 'Night peaks (19:00–04:00)',
+      highest: 'Highest',
+      lowest: 'Lowest',
+      addReason: 'Add',
+      reasonPlaceholder: 'Outage reason (e.g.: Power grid, Inverter failure)',
+      quantity: 'Qty',
+      delete: 'Delete'
+    }
+  };
+
+  const t = translations[language];
 
   useEffect(() => {
     async function run() {
@@ -52,20 +117,9 @@ export default function Dashboard() {
     run();
   }, []);
 
-  const base = new Date();
-  const forecasts = Array.from({ length: 5 }).map((_, i) => {
-    const d = new Date(base);
-    d.setDate(base.getDate() + i);
-    const conditions = ['sunny', 'rain-risk', 'cloudy'];
-    let condition = conditions[i % conditions.length];
-    if (d.getDate() === 13) condition = 'sunny';
-    return {
-      dateISO: d.toISOString(),
-      condition,
-      temperatureC: 24 + (i % 3) * 2,
-      precipitationChance: condition === 'rain-risk' ? 0.5 : condition === 'cloudy' ? 0.2 : 0.05
-    };
-  });
+  // Gerar dados meteorológicos usando a configuração centralizada
+  const forecasts = generateWeatherData();
+  const scenarioInfo = getCurrentScenarioInfo();
 
   return (
     <div className="layout">
@@ -75,49 +129,54 @@ export default function Dashboard() {
         <div className="content">
           <div className="grid" style={{ marginBottom: 24 }}>
             <div className="card">
-              <h3>Gráfico da GoodWe</h3>
+              <h3>{t.goodweChart}</h3>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
-                <SelectToggle label="Load(W)" value="load" selected={selected} setSelected={setSelected} color="#d13438" />
-                <SelectToggle label="PV(W)" value="pv" selected={selected} setSelected={setSelected} color="#ff6b6b" />
-                <SelectToggle label="Bateria(W)" value="battery" selected={selected} setSelected={setSelected} color="#ffd166" />
-                <SelectToggle label="Grid(W)" value="grid" selected={selected} setSelected={setSelected} color="#6ee7b7" />
-                <SelectToggle label="SOC(%)" value="soc" selected={selected} setSelected={setSelected} color="#8ab4f8" />
+                <SelectToggle label={t.load} value="load" selected={selected} setSelected={setSelected} color="#d13438" />
+                <SelectToggle label={t.pv} value="pv" selected={selected} setSelected={setSelected} color="#ff6b6b" />
+                <SelectToggle label={t.battery} value="battery" selected={selected} setSelected={setSelected} color="#ffd166" />
+                <SelectToggle label={t.grid} value="grid" selected={selected} setSelected={setSelected} color="#6ee7b7" />
+                <SelectToggle label={t.soc} value="soc" selected={selected} setSelected={setSelected} color="#8ab4f8" />
                 <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
-                  <HourSelect label="De" value={hourFrom} onChange={setHourFrom} />
-                  <HourSelect label="Até" value={hourTo} onChange={setHourTo} />
-                  <button onClick={() => { setHourFrom(0); setHourTo(23); try { chartRef.current?.resetZoom?.(); } catch {} }} className="card" style={{ padding: '8px 10px' }}>Reset Zoom</button>
+                  <HourSelect label={t.from} value={hourFrom} onChange={setHourFrom} />
+                  <HourSelect label={t.to} value={hourTo} onChange={setHourTo} />
+                  <button onClick={() => { setHourFrom(0); setHourTo(23); try { chartRef.current?.resetZoom?.(); } catch {} }} className="card" style={{ padding: '8px 10px' }}>{t.resetZoom}</button>
                 </div>
               </div>
-              <LineChart chartRef={chartRef} labels={filteredLabels(labels, hourFrom, hourTo).map(formatHourMinute)} datasets={buildDatasets(series, selected, hourFrom, hourTo)} />
+              <LineChart chartRef={chartRef} labels={filteredLabels(labels, hourFrom, hourTo).map(formatHourMinute)} datasets={buildDatasets(series, selected, hourFrom, hourTo, t)} />
             </div>
             <div className="card">
-              <h3>Notificações</h3>
-              <Notices forecasts={forecasts} />
+              <h3>{t.notifications}</h3>
+              <WeatherControlPanel scenarioInfo={scenarioInfo} />
+              <Notices forecasts={forecasts} language={language} />
             </div>
+          </div>
+
+          <div className="grid" style={{ marginBottom: 24 }}>
+            <AlertSystem />
           </div>
 
           <div className="grid" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
             <div className="card">
-              <h3>Picos de gasto por período</h3>
+              <h3>{t.peaksByPeriod}</h3>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                <span style={{ color: 'var(--muted)' }}>Tipo:</span>
+                <span style={{ color: 'var(--muted)' }}>{t.type}:</span>
                 <select value={peaksMetric} onChange={e => setPeaksMetric(e.target.value)} style={{ background: 'var(--surface)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: 8, padding: '6px 8px' }}>
-                  <option value="load">Load(W)</option>
-                  <option value="pv">PV(W)</option>
-                  <option value="battery">Bateria(W)</option>
-                  <option value="grid">Grid(W)</option>
-                  <option value="soc">SOC(%)</option>
+                  <option value="load">{t.load}</option>
+                  <option value="pv">{t.pv}</option>
+                  <option value="battery">{t.battery}</option>
+                  <option value="grid">{t.grid}</option>
+                  <option value="soc">{t.soc}</option>
                 </select>
               </div>
-              <PeaksList rows={series} metric={peaksMetric} />
+              <PeaksList rows={series} metric={peaksMetric} language={language} />
             </div>
             <div className="card">
-              <h3>Causas mais comuns de queda de energia</h3>
+              <h3>{t.mostCommonOutageCauses}</h3>
               <PieChart labels={outagePie.labels} data={outagePie.data} />
             </div>
             <div className="card">
-              <h3>Queda de energia</h3>
-              <ReasonsForm onData={setOutagePie} />
+              <h3>{t.powerOutage}</h3>
+              <ReasonsForm onData={setOutagePie} language={language} />
             </div>
           </div>
 
@@ -140,9 +199,31 @@ function LegendDot({ text, color }) {
   );
 }
 
-function Notices({ forecasts }) {
+function Notices({ forecasts, language }) {
   const [nextEvent, setNextEvent] = useState(null);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
+  
+  const translations = {
+    pt: {
+      alerts: 'Avisos',
+      rainAlert: 'ALERTA! Hoje há previsão de chuva, possível queda de energia.',
+      outageDetected: 'Detectado queda de energia às {time} do dia {date}, adicione o motivo na aba "Queda de energia"',
+      noAlerts: 'Nenhum aviso para amanhã.',
+      futureEvents: 'Eventos Futuros',
+      noEvents: 'Nenhum evento agendado'
+    },
+    en: {
+      alerts: 'Alerts',
+      rainAlert: 'ALERT! Today there is rain forecast, possible power outage.',
+      outageDetected: 'Power outage detected at {time} on {date}, add the reason in the "Power Outage" tab',
+      noAlerts: 'No alerts for tomorrow.',
+      futureEvents: 'Future Events',
+      noEvents: 'No events scheduled'
+    }
+  };
+
+  const t = translations[language];
+
   useEffect(() => {
     async function load() {
       try {
@@ -171,7 +252,7 @@ function Notices({ forecasts }) {
   const tISO = tomorrow.toISOString().slice(0, 10);
   const fTomorrow = forecasts.find(f => (f.dateISO || '').startsWith(tISO));
   if (fTomorrow?.condition === 'rain-risk') {
-    msgs.push({ text: 'ALERTA! Amanhã há previsão de chuva, possível queda de energia.', urgent: true });
+    msgs.push({ text: t.rainAlert, urgent: true });
   }
 
   // Fetch most recent outage event to ask for reason
@@ -183,17 +264,18 @@ function Notices({ forecasts }) {
   }, []);
   if (lastOutage) {
     const d = new Date(lastOutage.at);
-    const hora = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    const dia = d.toLocaleDateString('pt-BR');
-    msgs.push({ text: `Detectado queda de energia às ${hora} do dia ${dia}, adicione o motivo na aba "Queda de energia"`, urgent: false });
+    const locale = language === 'pt' ? 'pt-BR' : 'en-US';
+    const hora = d.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
+    const dia = d.toLocaleDateString(locale);
+    msgs.push({ text: t.outageDetected.replace('{time}', hora).replace('{date}', dia), urgent: false });
   }
 
-  if (msgs.length === 0) msgs.push({ text: 'Nenhum aviso para amanhã.', urgent: false });
+  if (msgs.length === 0) msgs.push({ text: t.noAlerts, urgent: false });
 
   return (
     <div style={{ display: 'grid', gap: 16 }}>
       <div>
-        <h4 style={{ margin: '0 0 8px 0', color: 'var(--accent)' }}>Avisos</h4>
+        <h4 style={{ margin: '0 0 8px 0', color: 'var(--accent)' }}>{t.alerts}</h4>
         <ul className="legend" style={{ margin: 0 }}>
           {msgs.map((m, i) => (
             <li key={i} style={{ listStyle: 'none', fontWeight: m.urgent ? 'bold' : 'normal', color: m.urgent ? 'var(--danger)' : 'var(--text)', textTransform: m.urgent ? 'uppercase' : 'none' }}>{m.text}</li>
@@ -202,26 +284,48 @@ function Notices({ forecasts }) {
       </div>
       
       <div>
-        <h4 style={{ margin: '0 0 8px 0', color: 'var(--accent)' }}>Eventos Futuros</h4>
+        <h4 style={{ margin: '0 0 8px 0', color: 'var(--accent)' }}>{t.futureEvents}</h4>
         {upcomingEvents.length > 0 ? (
           <ul className="legend" style={{ margin: 0 }}>
             {upcomingEvents.map((event, i) => (
               <li key={i} style={{ listStyle: 'none', fontSize: '14px' }}>
-                {new Date(event.date).toLocaleDateString('pt-BR')} — {event.text}
+                {new Date(event.date).toLocaleDateString(language === 'pt' ? 'pt-BR' : 'en-US')} — {event.text}
               </li>
             ))}
           </ul>
         ) : (
-          <span style={{ color: 'var(--muted)', fontSize: '14px' }}>Nenhum evento agendado</span>
+          <span style={{ color: 'var(--muted)', fontSize: '14px' }}>{t.noEvents}</span>
         )}
       </div>
     </div>
   );
 }
 
-function ReasonsForm({ onData }) {
+function ReasonsForm({ onData, language }) {
   const [name, setName] = useState('');
   const [reasons, setReasons] = useState([]);
+
+  const translations = {
+    pt: {
+      reasonPlaceholder: 'Motivo da queda (ex.: Rede elétrica, Falha no inversor)',
+      add: 'Adicionar',
+      quantity: 'Qtd',
+      delete: 'Excluir'
+    },
+    en: {
+      reasonPlaceholder: 'Outage reason (e.g.: Power grid, Inverter failure)',
+      add: 'Add',
+      quantity: 'Qty',
+      delete: 'Delete',
+      weatherControl: 'Weather Control',
+      currentScenario: 'Current Scenario',
+      changeScenario: 'Change Scenario',
+      scenarioDescription: 'Description',
+      editConfig: 'Edit Configuration'
+    }
+  };
+
+  const t = translations[language];
 
   async function refresh() {
     const list = await fetch('/api/outages/reasons').then(r => r.json());
@@ -252,18 +356,18 @@ function ReasonsForm({ onData }) {
   return (
     <div style={{ display: 'grid', gap: 8 }}>
       <form onSubmit={add} style={{ display: 'flex', gap: 6 }}>
-        <input value={name} onChange={e => setName(e.target.value)} placeholder="Motivo da queda (ex.: Rede elétrica, Falha no inversor)" style={{ flex: 1, background: 'var(--surface)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 10px' }} />
-        <button className="card" style={{ padding: '8px 12px' }} type="submit">Adicionar</button>
+        <input value={name} onChange={e => setName(e.target.value)} placeholder={t.reasonPlaceholder} style={{ flex: 1, background: 'var(--surface)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 10px' }} />
+        <button className="card" style={{ padding: '8px 12px' }} type="submit">{t.add}</button>
       </form>
       <div style={{ display: 'grid', gap: 6, maxHeight: 240, overflow: 'auto', paddingRight: 4 }}>
         {reasons.map(r => (
           <div key={r.id} className="card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span>{r.name}</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ color: 'var(--muted)' }}>Qtd: {r.count}</span>
+              <span style={{ color: 'var(--muted)' }}>{t.quantity}: {r.count}</span>
               <button className="card" onClick={() => dec(r.name)} style={{ padding: '4px 10px' }}>-</button>
               <button className="card" onClick={() => inc(r.name)} style={{ padding: '4px 10px' }}>+</button>
-              <button className="card" onClick={async () => { await fetch(`/api/outages/reasons/${r.id}`, { method: 'DELETE' }); refresh(); }} style={{ padding: '4px 10px', background: 'var(--danger)', color: '#fff' }}>Excluir</button>
+              <button className="card" onClick={async () => { await fetch(`/api/outages/reasons/${r.id}`, { method: 'DELETE' }); refresh(); }} style={{ padding: '4px 10px', background: 'var(--danger)', color: '#fff' }}>{t.delete}</button>
             </div>
           </div>
         ))}
@@ -297,13 +401,13 @@ function extractHour(timeStr) {
 }
 
 // Build datasets for multi-series line chart
-function buildDatasets(rows, selected, hourFrom, hourTo) {
+function buildDatasets(rows, selected, hourFrom, hourTo, t) {
   const colors = {
-    load: { border: '#d13438', bg: 'rgba(209,52,56,0.25)', label: 'Load(W)' },
-    pv: { border: '#ff6b6b', bg: 'rgba(255,107,107,0.2)', label: 'PV(W)' },
-    battery: { border: '#ffd166', bg: 'rgba(255,209,102,0.2)', label: 'Bateria(W)' },
-    grid: { border: '#6ee7b7', bg: 'rgba(110,231,183,0.2)', label: 'Grid(W)' },
-    soc: { border: '#8ab4f8', bg: 'rgba(138,180,248,0.2)', label: 'SOC(%)' }
+    load: { border: '#d13438', bg: 'rgba(209,52,56,0.25)', label: t.load },
+    pv: { border: '#ff6b6b', bg: 'rgba(255,107,107,0.2)', label: t.pv },
+    battery: { border: '#ffd166', bg: 'rgba(255,209,102,0.2)', label: t.battery },
+    grid: { border: '#6ee7b7', bg: 'rgba(110,231,183,0.2)', label: t.grid },
+    soc: { border: '#8ab4f8', bg: 'rgba(138,180,248,0.2)', label: t.soc }
   };
 
   const rangeFiltered = rows.filter(r => {
@@ -366,11 +470,30 @@ function formatHourMinute(timeStr) {
   return `${m[1]}:${m[2]}`;
 }
 
-function PeaksList({ rows, metric }) {
+function PeaksList({ rows, metric, language }) {
   const key = metric === 'load' ? 'loadW' : metric === 'pv' ? 'pvW' : metric === 'battery' ? 'batteryW' : metric === 'grid' ? 'gridW' : 'soc';
   const toValue = r => Number(r[key] || 0);
   const unit = metric === 'soc' ? '%' : ' W';
   const fmt = v => `${v}${unit}`;
+
+  const translations = {
+    pt: {
+      morning: 'Picos de gasto manhã (05:00–11:00)',
+      afternoon: 'Picos de gasto tarde (12:00–18:00)',
+      night: 'Picos de gasto noite (19:00–04:00)',
+      highest: 'Maior',
+      lowest: 'Menor'
+    },
+    en: {
+      morning: 'Morning peaks (05:00–11:00)',
+      afternoon: 'Afternoon peaks (12:00–18:00)',
+      night: 'Night peaks (19:00–04:00)',
+      highest: 'Highest',
+      lowest: 'Lowest'
+    }
+  };
+
+  const t = translations[language];
 
   const morning = rows.filter(r => { const h = extractHour(r.time); return h >= 5 && h <= 11; });
   const afternoon = rows.filter(r => { const h = extractHour(r.time); return h >= 12 && h <= 18; });
@@ -394,17 +517,109 @@ function PeaksList({ rows, metric }) {
     return (
       <div className="card" style={{ padding: 12, display: 'grid', gap: 6 }}>
         <strong>{title}</strong>
-        <span>Maior: {info.max ? `${formatHourMinute(info.max.time)} — ${fmt(toValue(info.max))}` : '—'}</span>
-        <span>Menor: {info.min ? `${formatHourMinute(info.min.time)} — ${fmt(toValue(info.min))}` : '—'}</span>
+        <span>{t.highest}: {info.max ? `${formatHourMinute(info.max.time)} — ${fmt(toValue(info.max))}` : '—'}</span>
+        <span>{t.lowest}: {info.min ? `${formatHourMinute(info.min.time)} — ${fmt(toValue(info.min))}` : '—'}</span>
       </div>
     );
   }
 
   return (
     <div style={{ display: 'grid', gap: 8 }}>
-      {line('Picos de gasto manhã (05:00–11:00)', m)}
-      {line('Picos de gasto tarde (12:00–18:00)', a)}
-      {line('Picos de gasto noite (19:00–04:00)', n)}
+      {line(t.morning, m)}
+      {line(t.afternoon, a)}
+      {line(t.night, n)}
+    </div>
+  );
+}
+
+// Componente para controle de cenários meteorológicos
+function WeatherControlPanel({ scenarioInfo }) {
+  const [showDetails, setShowDetails] = useState(false);
+  const [audioStatus, setAudioStatus] = useState('idle'); // 'idle', 'playing', 'error'
+  
+  // Verificar se há alertas críticos que podem tocar áudio
+  useEffect(() => {
+    const checkAudioStatus = () => {
+      // Verificar se há áudio sendo reproduzido no sistema
+      const audioElements = document.querySelectorAll('audio');
+      const isPlaying = Array.from(audioElements).some(audio => !audio.paused);
+      
+      if (isPlaying) {
+        setAudioStatus('playing');
+      } else {
+        setAudioStatus('idle');
+      }
+    };
+    
+    // Verificar a cada 2 segundos
+    const interval = setInterval(checkAudioStatus, 2000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  return (
+    <div style={{ 
+      marginBottom: 16, 
+      padding: 12, 
+      background: 'var(--surface)', 
+      borderRadius: 8, 
+      border: '1px solid var(--border)' 
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+        <h4 style={{ margin: 0, color: 'var(--accent)', fontSize: '14px' }}>
+          🌤️ Controle Meteorológico
+        </h4>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {audioStatus === 'playing' && (
+            <div className={weatherStyles.audioIndicator}>
+              🔊 Tocando
+            </div>
+          )}
+          <button 
+            onClick={() => setShowDetails(!showDetails)}
+            className="card" 
+            style={{ padding: '4px 8px', fontSize: '12px' }}
+          >
+            {showDetails ? 'Ocultar' : 'Detalhes'}
+          </button>
+        </div>
+      </div>
+      
+      <div style={{ marginBottom: 8 }}>
+        <strong style={{ color: 'var(--text)' }}>Cenário Atual:</strong>
+        <span style={{ marginLeft: 8, color: 'var(--accent)' }}>{scenarioInfo.name}</span>
+      </div>
+      
+      {showDetails && (
+        <div style={{ 
+          padding: 8, 
+          background: 'var(--background)', 
+          borderRadius: 6, 
+          fontSize: '12px',
+          color: 'var(--muted)',
+          marginBottom: 8
+        }}>
+          <div style={{ marginBottom: 4 }}>
+            <strong>Descrição:</strong> {scenarioInfo.description}
+          </div>
+          <div style={{ marginBottom: 4 }}>
+            <strong>Como editar:</strong> Abra o arquivo <code>lib/weatherConfig.js</code>
+          </div>
+          <div style={{ marginBottom: 4 }}>
+            <strong>Mudar cenário:</strong> Altere a variável <code>CURRENT_SCENARIO</code>
+          </div>
+          <div style={{ marginBottom: 4 }}>
+            <strong>Áudio automático:</strong> Alertas críticos (prioridade ≥4) tocam automaticamente
+          </div>
+          <div style={{ fontSize: '11px', marginTop: 8, padding: 6, background: 'var(--surface)', borderRadius: 4 }}>
+            <strong>💡 Dica:</strong> Após editar, recarregue a página para ver as mudanças!
+          </div>
+        </div>
+      )}
+      
+      <div style={{ fontSize: '11px', color: 'var(--muted)' }}>
+        📁 Arquivo: <code>lib/weatherConfig.js</code>
+      </div>
     </div>
   );
 }

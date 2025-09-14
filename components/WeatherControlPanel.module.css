@@ -1,0 +1,36 @@
+/* Animação de pulso para indicador de áudio */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.audioIndicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  background: #10b981;
+  color: white;
+  border-radius: 4px;
+  font-size: 10px;
+  animation: pulse 2s infinite;
+}
+
+.audioIndicator.playing {
+  background: #10b981;
+}
+
+.audioIndicator.error {
+  background: #ef4444;
+  animation: none;
+}

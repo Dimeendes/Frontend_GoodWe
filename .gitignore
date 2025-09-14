@@ -1,3 +1,17 @@
 node_modules/
 
 package-lock.json
+
+# Cache de áudio gerado
+public/audio-cache/
+
+.next/
+
+.env.local
+.env
+
+public/data/
+
+public/audio-cache/
+
+public/data/Plant-Power_20250912195804.csv
