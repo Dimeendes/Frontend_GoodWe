@@ -8,6 +8,7 @@
 - **Público-Alvo:** Banca de faculdade/professores
 - **Objetivo:** Apresentar o SmartWe como solução inovadora para monitoramento solar
 - **Tom:** Profissional, dinâmico e técnico
+- **Integrantes:** Thiago Ono, Thiago Sobral, Diego Antonio, Pedro Miranda e Israel
 
 ---
 
@@ -20,7 +21,7 @@
 - Gráficos de energia em movimento de fundo
 
 **Texto/Narração:**
-> *"Imagine um sistema que não apenas monitora sua energia solar, mas PREDIZ problemas antes que aconteçam. Apresentamos o SmartWe."*
+> *"O intuito do sistema nao é so monitoramento e integração com um chat, mas sim PREVER e solucionar problemas."*
 
 **Elementos-chave:**
 - Logo bem visível
