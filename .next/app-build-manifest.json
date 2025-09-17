@@ -23,12 +23,6 @@
       "static/chunks/main-app.js",
       "static/css/app/medidas/page.css",
       "static/chunks/app/medidas/page.js"
-    ],
-    "/alertas/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/alertas/page.css",
-      "static/chunks/app/alertas/page.js"
     ]
   }
 }

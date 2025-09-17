@@ -1,4 +1,4 @@
-// File: C:\Users\thisa\OneDrive\Área de Trabalho\Fiap stuff\Material de sala\Avaliacoes\Challange Sprint\Etapa5_GoodWe\Frontend_goodwe\app\layout.js
+// File: C:\Users\thisa\OneDrive\Área de Trabalho\Fiap stuff\Material de sala\Avaliacoes\Challange\Etapa5_GoodWe\Frontend_goodwe\app\layout.js
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

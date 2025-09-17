@@ -310,7 +310,9 @@ function ReasonsForm({ onData, language }) {
       reasonPlaceholder: 'Motivo da queda (ex.: Rede elétrica, Falha no inversor)',
       add: 'Adicionar',
       quantity: 'Qtd',
-      delete: 'Excluir'
+      delete: 'Excluir',
+      noReasonsYet: 'Nenhum motivo de queda registrado ainda. Adicione motivos personalizados aqui.',
+      addCustomReasons: 'Adicione seus próprios motivos de queda de energia:'
     },
     en: {
       reasonPlaceholder: 'Outage reason (e.g.: Power grid, Inverter failure)',
@@ -321,7 +323,9 @@ function ReasonsForm({ onData, language }) {
       currentScenario: 'Current Scenario',
       changeScenario: 'Change Scenario',
       scenarioDescription: 'Description',
-      editConfig: 'Edit Configuration'
+      editConfig: 'Edit Configuration',
+      noReasonsYet: 'No outage reasons registered yet. Add custom reasons here.',
+      addCustomReasons: 'Add your own power outage reasons:'
     }
   };
 
@@ -329,8 +333,13 @@ function ReasonsForm({ onData, language }) {
 
   async function refresh() {
     const list = await fetch('/api/outages/reasons').then(r => r.json());
-    setReasons(list);
+    
+    // Para o gráfico, usa todos os dados (incluindo mock)
     onData && onData({ labels: list.map(r => r.name), data: list.map(r => r.count) });
+    
+    // Para a lista do formulário, filtra dados mock para manter a seção limpa
+    const realReasons = list.filter(r => !r.id.startsWith('mock-'));
+    setReasons(realReasons);
   }
 
   useEffect(() => { refresh(); }, []);
@@ -359,19 +368,22 @@ function ReasonsForm({ onData, language }) {
         <input value={name} onChange={e => setName(e.target.value)} placeholder={t.reasonPlaceholder} style={{ flex: 1, background: 'var(--surface)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 10px' }} />
         <button className="card" style={{ padding: '8px 12px' }} type="submit">{t.add}</button>
       </form>
-      <div style={{ display: 'grid', gap: 6, maxHeight: 240, overflow: 'auto', paddingRight: 4 }}>
-        {reasons.map(r => (
-          <div key={r.id} className="card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span>{r.name}</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ color: 'var(--muted)' }}>{t.quantity}: {r.count}</span>
-              <button className="card" onClick={() => dec(r.name)} style={{ padding: '4px 10px' }}>-</button>
-              <button className="card" onClick={() => inc(r.name)} style={{ padding: '4px 10px' }}>+</button>
-              <button className="card" onClick={async () => { await fetch(`/api/outages/reasons/${r.id}`, { method: 'DELETE' }); refresh(); }} style={{ padding: '4px 10px', background: 'var(--danger)', color: '#fff' }}>{t.delete}</button>
+      
+      {reasons.length > 0 && (
+        <div style={{ display: 'grid', gap: 6, maxHeight: 240, overflow: 'auto', paddingRight: 4 }}>
+          {reasons.map(r => (
+            <div key={r.id} className="card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span>{r.name}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ color: 'var(--muted)' }}>{t.quantity}: {r.count}</span>
+                <button className="card" onClick={() => dec(r.name)} style={{ padding: '4px 10px' }}>-</button>
+                <button className="card" onClick={() => inc(r.name)} style={{ padding: '4px 10px' }}>+</button>
+                <button className="card" onClick={async () => { await fetch(`/api/outages/reasons/${r.id}`, { method: 'DELETE' }); refresh(); }} style={{ padding: '4px 10px', background: 'var(--danger)', color: '#fff' }}>{t.delete}</button>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
