@@ -1,0 +1,31 @@
+{
+  "arduino.path": "C:\\Program Files\\Arduino IDE",
+  "arduino.defaultBaudRate": 115200,
+  "arduino.defaultBoard": "arduino:avr:uno",
+  "arduino.enableUSBDetection": true,
+  "arduino.logLevel": "info",
+  "arduino.enableAutoLibraryInstallation": true,
+  "arduino.useArduinoCli": true,
+  "arduino.arduinoCliPath": "arduino-cli",
+  "arduino.additionalUrls": [
+    "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
+  ],
+  "files.associations": {
+    "*.ino": "cpp",
+    "*.h": "c",
+    "*.cpp": "cpp"
+  },
+  "C_Cpp.default.compilerPath": "C:\\Program Files\\Arduino IDE\\hardware\\tools\\avr\\bin\\avr-gcc.exe",
+  "C_Cpp.default.intelliSenseMode": "gcc-x64",
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}",
+    "C:\\Program Files\\Arduino IDE\\hardware\\arduino\\avr\\cores\\arduino",
+    "C:\\Program Files\\Arduino IDE\\hardware\\arduino\\avr\\variants\\standard"
+  ],
+  "C_Cpp.default.defines": [
+    "ARDUINO=10819",
+    "ARDUINO_AVR_UNO",
+    "ARDUINO_ARCH_AVR",
+    "F_CPU=16000000L"
+  ]
+}
