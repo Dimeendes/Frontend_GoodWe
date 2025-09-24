@@ -9,6 +9,7 @@ import styles from './styles.module.css';
 export default function MedidasPage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [peaksMetric, setPeaksMetric] = useState('load');
   const { language } = useSettings();
 
   const translations = {
@@ -28,7 +29,19 @@ export default function MedidasPage() {
       generationEnd: 'Fim de Geração',
       generationEndLabel: 'Última geração do dia',
       batteryStatus: 'Estado da Bateria',
-      batteryStatusLabel: 'SOC médio'
+      batteryStatusLabel: 'SOC médio',
+      peaksByPeriod: 'Picos de gasto por período',
+      type: 'Tipo',
+      load: 'Load(W)',
+      pv: 'PV(W)',
+      battery: 'Bateria(W)',
+      grid: 'Grid(W)',
+      soc: 'SOC(%)',
+      morning: 'Picos de gasto manhã (05:00–11:00)',
+      afternoon: 'Picos de gasto tarde (12:00–18:00)',
+      night: 'Picos de gasto noite (19:00–04:00)',
+      highest: 'Maior',
+      lowest: 'Menor'
     },
     en: {
       title: 'Measures',
@@ -46,7 +59,19 @@ export default function MedidasPage() {
       generationEnd: 'Generation End',
       generationEndLabel: 'Last generation of the day',
       batteryStatus: 'Battery Status',
-      batteryStatusLabel: 'Average SOC'
+      batteryStatusLabel: 'Average SOC',
+      peaksByPeriod: 'Peak consumption by period',
+      type: 'Type',
+      load: 'Load(W)',
+      pv: 'PV(W)',
+      battery: 'Battery(W)',
+      grid: 'Grid(W)',
+      soc: 'SOC(%)',
+      morning: 'Morning peaks (05:00–11:00)',
+      afternoon: 'Afternoon peaks (12:00–18:00)',
+      night: 'Night peaks (19:00–04:00)',
+      highest: 'Highest',
+      lowest: 'Lowest'
     }
   };
 
@@ -134,6 +159,23 @@ export default function MedidasPage() {
               </div>
             </div>
           </div>
+
+          <div className="grid" style={{ gridTemplateColumns: '1fr', marginTop: 24 }}>
+            <div className="card">
+              <h3>{t.peaksByPeriod}</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                <span style={{ color: 'var(--muted)' }}>{t.type}:</span>
+                <select value={peaksMetric} onChange={e => setPeaksMetric(e.target.value)} style={{ background: 'var(--surface)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: 8, padding: '6px 8px' }}>
+                  <option value="load">{t.load}</option>
+                  <option value="pv">{t.pv}</option>
+                  <option value="battery">{t.battery}</option>
+                  <option value="grid">{t.grid}</option>
+                  <option value="soc">{t.soc}</option>
+                </select>
+              </div>
+              <PeaksList rows={data} metric={peaksMetric} language={language} />
+            </div>
+          </div>
         </div>
       </main>
       <ChatWidget />
@@ -166,4 +208,71 @@ function formatHourMinute(timeStr) {
   const m = /\s(\d{2}):(\d{2}):\d{2}/.exec(String(timeStr));
   if (!m) return timeStr;
   return `${m[1]}:${m[2]}`;
+}
+
+function PeaksList({ rows, metric, language }) {
+  const key = metric === 'load' ? 'loadW' : metric === 'pv' ? 'pvW' : metric === 'battery' ? 'batteryW' : metric === 'grid' ? 'gridW' : 'soc';
+  const toValue = r => Number(r[key] || 0);
+  const unit = metric === 'soc' ? '%' : ' W';
+  const fmt = v => `${v}${unit}`;
+
+  const translations = {
+    pt: {
+      morning: 'Picos de gasto manhã (05:00–11:00)',
+      afternoon: 'Picos de gasto tarde (12:00–18:00)',
+      night: 'Picos de gasto noite (19:00–04:00)',
+      highest: 'Maior',
+      lowest: 'Menor'
+    },
+    en: {
+      morning: 'Morning peaks (05:00–11:00)',
+      afternoon: 'Afternoon peaks (12:00–18:00)',
+      night: 'Night peaks (19:00–04:00)',
+      highest: 'Highest',
+      lowest: 'Lowest'
+    }
+  };
+
+  const t = translations[language];
+
+  const morning = rows.filter(r => { const h = extractHour(r.time); return h >= 5 && h <= 11; });
+  const afternoon = rows.filter(r => { const h = extractHour(r.time); return h >= 12 && h <= 18; });
+  const night = rows.filter(r => { const h = extractHour(r.time); return h >= 19 || h <= 4; });
+
+  function peakInfo(list) {
+    if (!list.length) return { max: null, min: null };
+    let max = list[0], min = list[0];
+    for (const r of list) {
+      if (toValue(r) > toValue(max)) max = r;
+      if (toValue(r) < toValue(min)) min = r;
+    }
+    return { max, min };
+  }
+
+  const m = peakInfo(morning);
+  const a = peakInfo(afternoon);
+  const n = peakInfo(night);
+
+  function line(title, info) {
+    return (
+      <div className="card" style={{ padding: 12, display: 'grid', gap: 6 }}>
+        <strong>{title}</strong>
+        <span>{t.highest}: {info.max ? `${formatHourMinute(info.max.time)} — ${fmt(toValue(info.max))}` : '—'}</span>
+        <span>{t.lowest}: {info.min ? `${formatHourMinute(info.min.time)} — ${fmt(toValue(info.min))}` : '—'}</span>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display: 'grid', gap: 8 }}>
+      {line(t.morning, m)}
+      {line(t.afternoon, a)}
+      {line(t.night, n)}
+    </div>
+  );
+}
+
+function extractHour(timeStr) {
+  const match = /\s(\d{2}):(\d{2}):\d{2}/.exec(String(timeStr));
+  return match ? Number(match[1]) : 0;
 }

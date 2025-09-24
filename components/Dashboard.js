@@ -20,7 +20,6 @@ export default function Dashboard() {
   const [hourFrom, setHourFrom] = useState(0);
   const [hourTo, setHourTo] = useState(23);
   const chartRef = useRef(null);
-  const [peaksMetric, setPeaksMetric] = useState('load');
   const { language } = useSettings();
 
   const translations = {
@@ -35,15 +34,8 @@ export default function Dashboard() {
       to: 'Até',
       resetZoom: 'Reset Zoom',
       notifications: 'Notificações',
-      peaksByPeriod: 'Picos de gasto por período',
-      type: 'Tipo',
       mostCommonOutageCauses: 'Causas mais comuns de queda de energia',
       powerOutage: 'Queda de energia',
-      morning: 'Picos de gasto manhã (05:00–11:00)',
-      afternoon: 'Picos de gasto tarde (12:00–18:00)',
-      night: 'Picos de gasto noite (19:00–04:00)',
-      highest: 'Maior',
-      lowest: 'Menor',
       addReason: 'Adicionar',
       reasonPlaceholder: 'Motivo da queda (ex.: Rede elétrica, Falha no inversor)',
       quantity: 'Qtd',
@@ -65,15 +57,8 @@ export default function Dashboard() {
       to: 'To',
       resetZoom: 'Reset Zoom',
       notifications: 'Notifications',
-      peaksByPeriod: 'Peak consumption by period',
-      type: 'Type',
       mostCommonOutageCauses: 'Most common power outage causes',
       powerOutage: 'Power Outage',
-      morning: 'Morning peaks (05:00–11:00)',
-      afternoon: 'Afternoon peaks (12:00–18:00)',
-      night: 'Night peaks (19:00–04:00)',
-      highest: 'Highest',
-      lowest: 'Lowest',
       addReason: 'Add',
       reasonPlaceholder: 'Outage reason (e.g.: Power grid, Inverter failure)',
       quantity: 'Qty',
@@ -155,21 +140,7 @@ export default function Dashboard() {
             <AlertSystem />
           </div>
 
-          <div className="grid" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
-            <div className="card">
-              <h3>{t.peaksByPeriod}</h3>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                <span style={{ color: 'var(--muted)' }}>{t.type}:</span>
-                <select value={peaksMetric} onChange={e => setPeaksMetric(e.target.value)} style={{ background: 'var(--surface)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: 8, padding: '6px 8px' }}>
-                  <option value="load">{t.load}</option>
-                  <option value="pv">{t.pv}</option>
-                  <option value="battery">{t.battery}</option>
-                  <option value="grid">{t.grid}</option>
-                  <option value="soc">{t.soc}</option>
-                </select>
-              </div>
-              <PeaksList rows={series} metric={peaksMetric} language={language} />
-            </div>
+          <div className="grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
             <div className="card">
               <h3>{t.mostCommonOutageCauses}</h3>
               <PieChart labels={outagePie.labels} data={outagePie.data} />
@@ -193,58 +164,49 @@ export default function Dashboard() {
 function LegendDot({ text, color }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-      <span style={{ width: 10, height: 10, background: color, borderRadius: 999 }} />
+      <span style={{ 
+        width: 12, 
+        height: 12, 
+        background: color, 
+        borderRadius: '50%',
+        flexShrink: 0,
+        display: 'inline-block'
+      }} />
       <span>{text}</span>
     </div>
   );
 }
 
 function Notices({ forecasts, language }) {
-  const [nextEvent, setNextEvent] = useState(null);
-  const [upcomingEvents, setUpcomingEvents] = useState([]);
-  
   const translations = {
     pt: {
       alerts: 'Avisos',
       rainAlert: 'ALERTA! Hoje há previsão de chuva, possível queda de energia.',
       outageDetected: 'Detectado queda de energia às {time} do dia {date}, adicione o motivo na aba "Queda de energia"',
       noAlerts: 'Nenhum aviso para amanhã.',
-      futureEvents: 'Eventos Futuros',
-      noEvents: 'Nenhum evento agendado'
+      legends: 'Legendas',
+      loadLegend: 'Load(W) = Consumo',
+      pvLegend: 'PV(W) = Geração de energia solar',
+      batteryLegend: 'Bateria(W) = Indica se a bateria esta carregando ou descarregando',
+      gridLegend: 'Grid(W) = Indica se esta exportando ou importando energia',
+      socLegend: 'SOC(%) = Porcentagem da bateria'
     },
     en: {
       alerts: 'Alerts',
       rainAlert: 'ALERT! Today there is rain forecast, possible power outage.',
       outageDetected: 'Power outage detected at {time} on {date}, add the reason in the "Power Outage" tab',
       noAlerts: 'No alerts for tomorrow.',
-      futureEvents: 'Future Events',
-      noEvents: 'No events scheduled'
+      legends: 'Legends',
+      loadLegend: 'Load(W) = Consumption',
+      pvLegend: 'PV(W) = Solar energy generation',
+      batteryLegend: 'Battery(W) = Indicates if battery is charging or discharging',
+      gridLegend: 'Grid(W) = Indicates if exporting or importing energy',
+      socLegend: 'SOC(%) = Battery percentage'
     }
   };
 
   const t = translations[language];
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const items = await fetch('/api/agenda').then(r => r.json());
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const yyyyMmDd = tomorrow.toISOString().slice(0, 10);
-        const match = items.find(i => i.date && i.date.startsWith(yyyyMmDd));
-        if (match) setNextEvent(match);
-        
-        // Get 3 most recent upcoming events
-        const today = new Date();
-        const upcoming = items
-          .filter(i => i.date && new Date(i.date) >= today)
-          .sort((a, b) => new Date(a.date) - new Date(b.date))
-          .slice(0, 3);
-        setUpcomingEvents(upcoming);
-      } catch {}
-    }
-    load();
-  }, []);
 
   const msgs = [];
   const tomorrow = new Date();
@@ -284,18 +246,24 @@ function Notices({ forecasts, language }) {
       </div>
       
       <div>
-        <h4 style={{ margin: '0 0 8px 0', color: 'var(--accent)' }}>{t.futureEvents}</h4>
-        {upcomingEvents.length > 0 ? (
-          <ul className="legend" style={{ margin: 0 }}>
-            {upcomingEvents.map((event, i) => (
-              <li key={i} style={{ listStyle: 'none', fontSize: '14px' }}>
-                {new Date(event.date).toLocaleDateString(language === 'pt' ? 'pt-BR' : 'en-US')} — {event.text}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <span style={{ color: 'var(--muted)', fontSize: '14px' }}>{t.noEvents}</span>
-        )}
+        <h4 style={{ margin: '0 0 8px 0', color: 'var(--accent)' }}>{t.legends}</h4>
+        <ul className="legend" style={{ margin: 0 }}>
+          <li style={{ listStyle: 'none', fontSize: '13px', marginBottom: '6px', color: 'var(--text)' }}>
+            <LegendDot text={t.loadLegend} color="#d13438" />
+          </li>
+          <li style={{ listStyle: 'none', fontSize: '13px', marginBottom: '6px', color: 'var(--text)' }}>
+            <LegendDot text={t.pvLegend} color="#ff6b6b" />
+          </li>
+          <li style={{ listStyle: 'none', fontSize: '13px', marginBottom: '6px', color: 'var(--text)' }}>
+            <LegendDot text={t.batteryLegend} color="#ffd166" />
+          </li>
+          <li style={{ listStyle: 'none', fontSize: '13px', marginBottom: '6px', color: 'var(--text)' }}>
+            <LegendDot text={t.gridLegend} color="#6ee7b7" />
+          </li>
+          <li style={{ listStyle: 'none', fontSize: '13px', marginBottom: '0px', color: 'var(--text)' }}>
+            <LegendDot text={t.socLegend} color="#8ab4f8" />
+          </li>
+        </ul>
       </div>
     </div>
   );
@@ -422,7 +390,8 @@ function buildDatasets(rows, selected, hourFrom, hourTo, t) {
     backgroundColor: colors[key].bg,
     pointBackgroundColor: colors[key].border,
     tension: 0.25,
-    fill: false
+    fill: false,
+    yAxisID: key === 'soc' ? 'y1' : 'y'
   });
 
   const ds = [];
@@ -470,67 +439,6 @@ function formatHourMinute(timeStr) {
   return `${m[1]}:${m[2]}`;
 }
 
-function PeaksList({ rows, metric, language }) {
-  const key = metric === 'load' ? 'loadW' : metric === 'pv' ? 'pvW' : metric === 'battery' ? 'batteryW' : metric === 'grid' ? 'gridW' : 'soc';
-  const toValue = r => Number(r[key] || 0);
-  const unit = metric === 'soc' ? '%' : ' W';
-  const fmt = v => `${v}${unit}`;
-
-  const translations = {
-    pt: {
-      morning: 'Picos de gasto manhã (05:00–11:00)',
-      afternoon: 'Picos de gasto tarde (12:00–18:00)',
-      night: 'Picos de gasto noite (19:00–04:00)',
-      highest: 'Maior',
-      lowest: 'Menor'
-    },
-    en: {
-      morning: 'Morning peaks (05:00–11:00)',
-      afternoon: 'Afternoon peaks (12:00–18:00)',
-      night: 'Night peaks (19:00–04:00)',
-      highest: 'Highest',
-      lowest: 'Lowest'
-    }
-  };
-
-  const t = translations[language];
-
-  const morning = rows.filter(r => { const h = extractHour(r.time); return h >= 5 && h <= 11; });
-  const afternoon = rows.filter(r => { const h = extractHour(r.time); return h >= 12 && h <= 18; });
-  const night = rows.filter(r => { const h = extractHour(r.time); return h >= 19 || h <= 4; });
-
-  function peakInfo(list) {
-    if (!list.length) return { max: null, min: null };
-    let max = list[0], min = list[0];
-    for (const r of list) {
-      if (toValue(r) > toValue(max)) max = r;
-      if (toValue(r) < toValue(min)) min = r;
-    }
-    return { max, min };
-  }
-
-  const m = peakInfo(morning);
-  const a = peakInfo(afternoon);
-  const n = peakInfo(night);
-
-  function line(title, info) {
-    return (
-      <div className="card" style={{ padding: 12, display: 'grid', gap: 6 }}>
-        <strong>{title}</strong>
-        <span>{t.highest}: {info.max ? `${formatHourMinute(info.max.time)} — ${fmt(toValue(info.max))}` : '—'}</span>
-        <span>{t.lowest}: {info.min ? `${formatHourMinute(info.min.time)} — ${fmt(toValue(info.min))}` : '—'}</span>
-      </div>
-    );
-  }
-
-  return (
-    <div style={{ display: 'grid', gap: 8 }}>
-      {line(t.morning, m)}
-      {line(t.afternoon, a)}
-      {line(t.night, n)}
-    </div>
-  );
-}
 
 // Componente para controle de cenários meteorológicos
 function WeatherControlPanel({ scenarioInfo }) {
