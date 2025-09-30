@@ -1,0 +1,47 @@
+/*
+  Automação simples de LED com sensor de movimento PIR
+  
+  Este sketch lê o estado de um sensor de movimento PIR
+  e controla um LED conectado a outra porta.
+*/
+
+// Define os pinos que serão usados
+const int sensorPin = 2; // Pino do sensor de movimento (OUT)
+const int ledPin = 13;   // Pino do LED
+
+// Variável para armazenar o estado do sensor
+int sensorState = 0;
+
+void setup() {
+  // Configura o pino do LED como saída
+  pinMode(ledPin, OUTPUT);
+  
+  // Configura o pino do sensor como entrada
+  pinMode(sensorPin, INPUT);
+  
+  // Inicia a comunicação serial para debug, se necessário
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Lê o valor do pino do sensor (HIGH se houver movimento)
+  sensorState = digitalRead(sensorPin);
+  
+  // Verifica se o estado do sensor é HIGH
+  if (sensorState == HIGH) {
+    // Se há movimento, acende o LED
+    digitalWrite(ledPin, HIGH);
+    Serial.println("Movimento detectado - LED Ligado!");
+    
+    // Opcional: Atraso para manter o LED ligado, mesmo se o movimento parar
+    delay(5000); // 5 segundos
+    digitalWrite(ledPin, LOW);
+  } else {
+    // Se não há movimento, apaga o LED
+    digitalWrite(ledPin, LOW);
+    Serial.println("Nenhum movimento - LED Desligado.");
+  }
+  
+  // Pequeno atraso para evitar leituras muito rápidas
+  delay(1000); 
+}
