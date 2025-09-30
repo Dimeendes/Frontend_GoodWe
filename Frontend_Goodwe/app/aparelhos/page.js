@@ -12,6 +12,7 @@ export default function AparelhosPage() {
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [selectedAparelho, setSelectedAparelho] = useState(null);
   const { language } = useSettings();
+  
 
   const translations = {
     pt: {
@@ -78,6 +79,7 @@ export default function AparelhosPage() {
   useEffect(() => {
     loadAparelhos();
   }, []);
+
 
   const loadAparelhos = async () => {
     try {
@@ -216,6 +218,8 @@ export default function AparelhosPage() {
 
 // Componente do card de aparelho
 function AparelhoCard({ aparelho, onInfoClick, language, t }) {
+  const isLampada = aparelho.name.toLowerCase().includes('lâmpada') || aparelho.name.toLowerCase().includes('lampada');
+  
   return (
     <div className={styles.aparelhoCard}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -231,9 +235,21 @@ function AparelhoCard({ aparelho, onInfoClick, language, t }) {
             }}
           />
           <div>
-            <h3 style={{ margin: 0, fontSize: '18px' }}>{aparelho.name}</h3>
+            <h3 style={{ margin: 0, fontSize: '18px', display: 'flex', alignItems: 'center', gap: 8 }}>
+              {aparelho.name}
+            </h3>
             <p style={{ margin: 0, color: 'var(--muted)', fontSize: '14px' }}>
               {t.applianceTypes[aparelho.type] || aparelho.type}
+              {isLampada && (
+                <span style={{ 
+                  marginLeft: 8, 
+                  color: '#2196F3', 
+                  fontSize: '12px',
+                  fontWeight: 'bold'
+                }}>
+                  • Controlado por sensor PIR
+                </span>
+              )}
             </p>
           </div>
         </div>
@@ -398,11 +414,15 @@ function AddAparelhoModal({ onClose, onAdd, language, t }) {
 
 // Modal para informações do aparelho
 function AparelhoInfoModal({ aparelho, onClose, onDelete, language, t }) {
+  const isLampada = aparelho.name.toLowerCase().includes('lâmpada') || aparelho.name.toLowerCase().includes('lampada');
+  
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-          <h2 style={{ margin: 0 }}>{aparelho.name}</h2>
+          <h2 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+            {aparelho.name}
+          </h2>
           <button 
             onClick={onClose}
             style={{ 
@@ -431,12 +451,14 @@ function AparelhoInfoModal({ aparelho, onClose, onDelete, language, t }) {
                   backgroundColor: aparelho.is_on ? '#4CAF50' : '#F44336',
                   width: 12,
                   height: 12,
-                  borderRadius: '50%'
+                  borderRadius: '50%',
+                  animation: aparelho.is_on ? 'pulse 2s infinite' : 'none'
                 }}
               />
               <span>{aparelho.is_on ? t.on : t.off}</span>
             </div>
           </div>
+
 
           <div className={styles.infoItem}>
             <label>{t.priorityLevel}</label>
@@ -468,16 +490,19 @@ function AparelhoInfoModal({ aparelho, onClose, onDelete, language, t }) {
               }
             </span>
           </div>
+
         </div>
 
         <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 24 }}>
-          <button 
-            onClick={() => onDelete(aparelho.id)}
-            className="card"
-            style={{ background: '#F44336', color: '#fff' }}
-          >
-            {language === 'pt' ? 'Excluir' : 'Delete'}
-          </button>
+          {!isLampada && (
+            <button 
+              onClick={() => onDelete(aparelho.id)}
+              className="card"
+              style={{ background: '#F44336', color: '#fff' }}
+            >
+              {language === 'pt' ? 'Excluir' : 'Delete'}
+            </button>
+          )}
           
           <button onClick={onClose} className="card">
             {t.close}

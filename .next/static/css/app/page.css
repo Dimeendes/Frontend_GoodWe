@@ -57,6 +57,27 @@
   background: #2f2f36; 
 }
 
+.Sidebar_logoutButton__6Guvk {
+  color: #ff6b6b;
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-align: left;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.Sidebar_logoutButton__6Guvk:hover { 
+  background: rgba(255, 107, 107, 0.1); 
+}
+
 /* Light theme styles for sidebar */
 .Sidebar_light-theme__29GbZ .Sidebar_link__NjnkI:hover { 
   background: #f3f4f6; 
@@ -64,6 +85,10 @@
 
 .Sidebar_light-theme__29GbZ .Sidebar_settingsButton__oeCrP:hover { 
   background: #f3f4f6; 
+}
+
+.Sidebar_light-theme__29GbZ .Sidebar_logoutButton__6Guvk:hover { 
+  background: rgba(255, 107, 107, 0.1); 
 }
 
 
@@ -497,5 +522,193 @@
 .WeatherControlPanel_audioIndicator___OOBf.WeatherControlPanel_error__9lZDc {
   background: #ef4444;
   animation: none;
+}
+
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[7].use[3]!./components/LoginPage.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
+.LoginPage_container__32EiP {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: 20px;
+}
+
+.LoginPage_loginCard__ekoEf {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+}
+
+.LoginPage_languageSelector__UXBct {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.LoginPage_languageLabel__UZLHW {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.LoginPage_languageSelect__0_9hx {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.LoginPage_languageSelect__0_9hx:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.1);
+}
+
+.LoginPage_languageSelect__0_9hx:hover {
+  border-color: var(--accent);
+}
+
+.LoginPage_logoContainer__Nzi1g {
+  margin-bottom: 40px;
+}
+
+.LoginPage_logo__6Dvx8 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.LoginPage_logoText__xEq85 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+}
+
+.LoginPage_logoSubtext__h11q3 {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.LoginPage_loginForm__2Wjwa {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.LoginPage_inputGroup__D9SD7 {
+  text-align: left;
+}
+
+.LoginPage_label__QQ9Z5 {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.LoginPage_input__09uRq {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.LoginPage_input__09uRq:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+.LoginPage_input__09uRq:disabled {
+  background-color: var(--bg);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.LoginPage_input__09uRq::placeholder {
+  color: var(--muted);
+}
+
+.LoginPage_errorMessage__ibnPv {
+  background-color: rgba(198, 43, 47, 0.1);
+  color: var(--danger);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  border: 1px solid var(--danger);
+}
+
+.LoginPage_loginButton__SqFzt {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.LoginPage_loginButton__SqFzt:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+  background: var(--primary);
+}
+
+.LoginPage_loginButton__SqFzt:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .LoginPage_loginCard__ekoEf {
+    padding: 30px 20px;
+    margin: 10px;
+  }
+  
+  .LoginPage_logoText__xEq85 {
+    font-size: 2rem;
+  }
+  
+  .LoginPage_languageSelector__UXBct {
+    margin-bottom: 20px;
+  }
+  
+  .LoginPage_languageLabel__UZLHW {
+    font-size: 0.8rem;
+  }
+  
+  .LoginPage_languageSelect__0_9hx {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
 }
 

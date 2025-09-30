@@ -11,6 +11,15 @@ export async function GET() {
         priority: 5,
         is_on: 1,
         created_at: "2025-09-24T03:47:19.824Z"
+      },
+      {
+        id: 2,
+        name: "Lâmpada",
+        type: "lighting",
+        energy_consumption: 12,
+        priority: 2,
+        is_on: 0,
+        created_at: "2025-09-24T03:47:19.824Z"
       }
     ]);
   } catch (error) {
