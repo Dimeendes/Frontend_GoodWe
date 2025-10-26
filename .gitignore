@@ -20,8 +20,3 @@ public/data/Plant-Power_20250912195804.csv
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
-
-# Arquivos Python (Arduino)
-Arduino.py
-Capturar_movimento.py
-Receber_Dados.py
