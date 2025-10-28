@@ -3,7 +3,7 @@ import serial
 conexao = " "
 for porta in range(10):
     try:
-        conexao = serial.Serial("COM" + str(porta), 115200, timeout = 0.5)
+        conexao = serial.Serial("COM" + str(porta),9600, timeout = 0.5)
         print("Conectado na porta:  ", conexao.portstr)
         break
     except serial.SerialException:

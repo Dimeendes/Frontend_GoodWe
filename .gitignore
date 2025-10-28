@@ -20,3 +20,6 @@ public/data/Plant-Power_20250912195804.csv
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
+
+# Dados de movimento do Arduino
+movimento_dados.json

@@ -78,6 +78,13 @@ export default function AparelhosPage() {
   // Carregar aparelhos salvos da API (similar à agenda)
   useEffect(() => {
     loadAparelhos();
+    
+    // Atualiza a cada 2 segundos para verificar mudanças no arquivo JSON
+    const interval = setInterval(() => {
+      loadAparelhos();
+    }, 2000);
+    
+    return () => clearInterval(interval);
   }, []);
 
 
