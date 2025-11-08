@@ -14,7 +14,6 @@ export default function Sidebar() {
   const translations = {
     pt: {
       home: 'Dashboard',
-      agenda: 'Agenda',
       measures: 'Medidas',
       appliances: 'Aparelhos',
       alerts: 'Alertas',
@@ -23,7 +22,6 @@ export default function Sidebar() {
     },
     en: {
       home: 'Dashboard',
-      agenda: 'Schedule',
       measures: 'Measures',
       appliances: 'Appliances',
       alerts: 'Alerts',
@@ -40,9 +38,6 @@ export default function Sidebar() {
       <nav className={styles.nav}>
         <Link className={clsx(styles.link, pathname === '/' && styles.active)} href="/">
           📈 {t.home}
-        </Link>
-        <Link className={clsx(styles.link, pathname.startsWith('/agenda') && styles.active)} href="/agenda">
-          📅 {t.agenda}
         </Link>
         <Link className={clsx(styles.link, pathname.startsWith('/medidas') && styles.active)} href="/medidas">
           📊 {t.measures}
